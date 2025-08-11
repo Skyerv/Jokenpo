@@ -32,6 +32,14 @@ namespace Jokenpo2.Application.Services
             Moves[playerId] = move;
         }
 
+        public bool RemovePlayer(Guid playerId)
+        {
+            var removed = Players.Remove(playerId);
+            Moves.Remove(playerId);
+
+            return removed;
+        }
+
 
         public (Guid winnerId, string winnerName)? EndRound()
         {

@@ -28,6 +28,17 @@ namespace Jokenpo2.Api.Controllers
             var id = await _mediator.Send(command);
             return CreatedAtAction(nameof(RegisterPlayer), new { id }, new { Id = id });
         }
+
+        [HttpDelete("{playerId}")]
+        public async Task<IActionResult> RemovePlayer(Guid playerId)
+        {
+            var removed = await _mediator.Send(new RemovePlayerCommand { PlayerId = playerId });
+
+            if (!removed)
+                return NotFound($"Player with ID {playerId} not found.");
+
+            return Ok(new { message = $"Player of ID '{playerId}' has been removed successfully." });
+        }
     }
 
     [ApiController]
