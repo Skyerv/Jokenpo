@@ -1,6 +1,7 @@
 using MediatR;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using Jokenpo2.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Pr
 
 builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 builder.Services.AddFluentValidationAutoValidation();
+
+builder.Services.AddSingleton<JokenpoService>();
 
 var app = builder.Build();
 

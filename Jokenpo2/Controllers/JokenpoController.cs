@@ -28,4 +28,29 @@ namespace Jokenpo2.Api.Controllers
             return CreatedAtAction(nameof(RegisterPlayer), new { id }, new { Id = id });
         }
     }
+
+    [ApiController]
+    [Route("moves")]
+    public class MovesController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+
+        public MovesController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RegisterMove([FromBody] RegisterMoveCommand command)
+        {
+            var validator = new RegisterMoveCommandValidator();
+            var validationResult = validator.Validate(command);
+
+            if (!validationResult.IsValid)
+                return BadRequest(validationResult.Errors);
+
+            await _mediator.Send(command);
+            return Ok(new { Message = "Player with ID [" + command.PlayerId + "] chose " + command.Move });
+        }
+    }
 }
