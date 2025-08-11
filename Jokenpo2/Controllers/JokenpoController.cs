@@ -72,5 +72,20 @@ namespace Jokenpo2.Api.Controllers
             var result = await _mediator.Send(new GetRoundStatusQuery());
             return Ok(result);
         }
+
+        [HttpPost("end")]
+        public async Task<IActionResult> EndRound()
+        {
+            var result = await _mediator.Send(new EndRoundCommand());
+
+            if (result == null)
+                return BadRequest("Round can not be finished. All players must play.");
+
+            return Ok(new
+            {
+                WinnerId = result.Value.winnerId,
+                WinnerName = result.Value.winnerName
+            });
+        }
     }
 }
