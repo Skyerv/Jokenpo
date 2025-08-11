@@ -77,7 +77,7 @@ Jokenpo
 ## Available Endpoints
 ### 1. Register a player
 ```
-POST /jokenpo/player
+POST /jokenpo/players
 ```
 Request body JSON:
 
@@ -89,7 +89,7 @@ Request body JSON:
 
 ### 2. Remove a player
 ```
-DELETE /jokenpo/player/{id}
+DELETE /jokenpo/players/{id}
 ```
 
 ### 3. Submit a move
@@ -137,7 +137,7 @@ No request body. Returns the winner or error if not all players have played.
 ### Example game flow
 Register player Carlos
 ```
-POST /jokenpo/player
+POST /jokenpo/players
 ```
 ```json
 { "name": "Carlos" }
@@ -151,7 +151,7 @@ POST /jokenpo/move
 ```
 Register player João
 ```
-POST /jokenpo/player
+POST /jokenpo/players
 ```
 ```json
 { "name": "João" }
