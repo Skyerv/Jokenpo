@@ -1,4 +1,5 @@
 ﻿using Jokenpo2.Application.Commands;
+using Jokenpo2.Application.Queries;
 using Jokenpo2.Application.Validators;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -51,6 +52,25 @@ namespace Jokenpo2.Api.Controllers
 
             await _mediator.Send(command);
             return Ok(new { Message = "Player with ID [" + command.PlayerId + "] chose " + command.Move });
+        }
+    }
+
+    [ApiController]
+    [Route("round")]
+    public class RoundController : ControllerBase
+    {
+        private readonly IMediator _mediator;
+
+        public RoundController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
+        [HttpGet("status")]
+        public async Task<IActionResult> GetRoundStatus()
+        {
+            var result = await _mediator.Send(new GetRoundStatusQuery());
+            return Ok(result);
         }
     }
 }
